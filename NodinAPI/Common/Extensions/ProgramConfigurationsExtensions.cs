@@ -15,6 +15,8 @@ namespace NodinAPI.Common.Extensions
                 x.UseSqlServer(connectionString: builder.Configuration["ConnectionString:Nodin"]);
             });
 
+
+
             //Mapper
             builder.Services.AddAutoMapper(typeof(Application.ObjectMapping.UserMapper));
 
