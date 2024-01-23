@@ -6,9 +6,8 @@ namespace NodinAPI.Common.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static async Task SetAuthenticationTokenAsync(this HttpContext httpContext, int userId, int activePersonId, IEnumerable<string> permissions, IEnumerable<int> legalPeopleIds, int? activeBranchId)
+        public static async Task SetAuthenticationTokenAsync(this HttpContext httpContext, int userId)
         {
-            var isActivepersonReal = userId == activePersonId;
 
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, userId.ToString()),

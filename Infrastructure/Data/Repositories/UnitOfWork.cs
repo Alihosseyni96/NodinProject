@@ -24,5 +24,10 @@ namespace Infrastructure.Data.Repositories
             Products = new ProductRepository(_context);
             Users = new UserRepository(_context);
         }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

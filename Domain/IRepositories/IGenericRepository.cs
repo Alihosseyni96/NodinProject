@@ -18,6 +18,5 @@ namespace Domain.IRepositories
         void UpdateAsync(TEntity entity);
 
         void RemoveAsync(TEntity entity);
-        Task SaveAsync();
     }
 }

@@ -3,7 +3,6 @@ using Infrastructure.Common.Extentions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -30,7 +29,12 @@ namespace Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<TEntity>> Read(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await dbSet.Where(filter).SetIncludes(includes).ToListAsync();
+            return await dbSet
+                .Where(filter)
+                .AsNoTracking()
+                .SetIncludes(includes)
+                .ToListAsync();
+
         }
 
         public  void RemoveAsync(TEntity entity)
@@ -38,15 +42,14 @@ namespace Infrastructure.Data.Repositories
              dbSet.Remove(entity);
         }
 
-        public async Task SaveAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-
 
         public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await dbSet.SetIncludes(includes).SingleOrDefaultAsync(predicate: filter);
+            return await dbSet
+                .AsNoTracking()
+                .SetIncludes(includes)
+                .SingleOrDefaultAsync(predicate: filter);
+              
         }
 
         public void UpdateAsync(TEntity entity)

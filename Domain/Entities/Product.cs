@@ -12,5 +12,10 @@ namespace Domain.Entities
         public string ManufactureEmail { get; set; }
         public string ManufacturePhone { get; set; }
         public DateTime ProduceDate { get; set; }
+        /// <summary>
+        /// کاربری که محصول را ایجاد کرده است
+        /// </summary>
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

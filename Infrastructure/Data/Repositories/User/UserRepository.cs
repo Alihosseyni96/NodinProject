@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories.Product;
 using Domain.IRepositories.User;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Infrastructure.Data.Repositories.User
         {
             
         }
+
     }
 }

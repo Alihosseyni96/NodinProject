@@ -12,5 +12,8 @@ namespace Domain.IRepositories
     {
         public IProductRepository Products { get; }
         public IUserRepository Users { get; }
+
+        Task SaveAsync();
+
     }
 }

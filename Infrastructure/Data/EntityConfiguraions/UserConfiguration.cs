@@ -1,29 +1,29 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfiguraions
 {
-    public class UserConfiguration : EntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public UserConfiguration()
-        {
-            Ignore(x => x.FullName);
 
-            Property(x=> x.FirstName)
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder.Ignore(x => x.FullName);
+
+            builder.Property(x => x.FirstName)
                 .HasMaxLength(50);
 
-            Property(x=> x.LastName)
+            builder.Property(x => x.LastName)
                 .HasMaxLength(250);
 
-            Property(x=> x.PhoneNumber)
+            builder.Property(x => x.PhoneNumber)
                .HasMaxLength(20);
-
-
         }
     }
 }

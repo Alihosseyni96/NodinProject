@@ -1,4 +1,4 @@
-﻿using Domain.ObjectMapping;
+﻿using Application.Services.Commands.User.Register;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +16,12 @@ namespace NodinAPI.Common.Extensions
             });
 
             //Mapper
-            builder.Services.AddAutoMapper(typeof(ProductMapper));
+            builder.Services.AddAutoMapper(typeof(Application.ObjectMapping.UserMapper));
 
             //Mediator
             builder.Services.AddMediatR(x =>
             {
-                x.RegisterServicesFromAssemblies(typeof(Program).Assembly);
+                x.RegisterServicesFromAssemblies(typeof(UserRegisterCommandHandler).Assembly);
             });
 
             //Authentication 
@@ -29,7 +29,7 @@ namespace NodinAPI.Common.Extensions
                 .AddCookie(options =>
                 {
                     options.Cookie.HttpOnly = true;
-                    options.Cookie.Name = "token";
+                    options.Cookie.Name = "nodinToken";
                     options.ExpireTimeSpan = TimeSpan.FromDays(30);
                     options.SlidingExpiration = true;
                     options.Events.OnRedirectToLogin = context =>

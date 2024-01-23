@@ -1,4 +1,3 @@
-using Domain.ObjectMapping;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 ProgramConfigurationsExtensions.Config(builder);
 DependencyInjectionExtensions.Register(builder.Services);
+
+
 
 var app = builder.Build();
 

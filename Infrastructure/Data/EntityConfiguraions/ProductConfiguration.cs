@@ -1,42 +1,36 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfiguraions
 {
-    public class ProductConfiguration : EntityTypeConfiguration<Product>
+    public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-        public ProductConfiguration()
+
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
-            
-            
-            Property(x => x.ManufactureEmail)
+            builder.Property(x => x.ManufactureEmail)
                 .HasMaxLength(150)
-                .IsRequired()
-                .HasColumnAnnotation("Index", new IndexAttribute()
-                {
-                    IsUnique = true
-                });
+                .IsRequired();
 
-            Property(x => x.ProduceDate)
-               .IsRequired()
-               .HasColumnAnnotation("Index", new IndexAttribute()
-               {
-                    IsUnique = true
-               });
+            builder.Property(x => x.ProduceDate)
+               .IsRequired();
 
-            Property(x => x.ManufacturePhone)
+            builder.Property(x => x.ManufacturePhone)
                 .HasMaxLength(50);
 
-            Property(x=> x.Name)
-                .HasMaxLength (250);
+            builder.Property(x => x.Name)
+                .HasMaxLength(250);
 
+            builder
+                .HasIndex(x => new { x.ManufactureEmail, x.ProduceDate })
+                .IsUnique();
         }
     }
 }
