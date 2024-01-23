@@ -17,5 +17,13 @@ namespace Domain.Entities
         /// </summary>
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public void ValidePersonGenerated(int loggedInUserId)
+        {
+            if(loggedInUserId != this.UserId)
+            {
+                throw new Exception("شما نمیتوانید این محصول را حذف کنید");
+            }
+        }
     }
 }

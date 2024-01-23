@@ -27,29 +27,41 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-        public async Task<IEnumerable<TEntity>> Read(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<IEnumerable<TEntity>> Read(Expression<Func<TEntity, bool>>? filter=null, params Expression<Func<TEntity, object>>[]? includes)
         {
-            return await dbSet
-                .Where(filter)
-                .AsNoTracking()
-                .SetIncludes(includes)
-                .ToListAsync();
+            var res = dbSet.AsQueryable();
+            if (filter != null)
+                res = res.Where(filter);
+            return await res.AsNoTracking().SetIncludes(includes).ToListAsync();
 
         }
 
-        public  void RemoveAsync(TEntity entity)
+        public  void Remove(TEntity entity)
         {
              dbSet.Remove(entity);
         }
 
 
-        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>>? filter=null, params Expression<Func<TEntity, object>>[]? includes)
         {
-            return await dbSet
+            var res = dbSet.AsQueryable();
+            if (filter != null)
+                res = res.Where(filter);
+
+            return await res
                 .AsNoTracking()
                 .SetIncludes(includes)
                 .SingleOrDefaultAsync(predicate: filter);
               
+        }
+
+        public async Task<IEnumerable<TEntity>> ReadIf(bool condition , Expression<Func<TEntity, bool>>? filter = null, params Expression<Func<TEntity, object>>[]? includes)
+        {
+            var res = dbSet.AsQueryable();
+            if (condition)
+                res = res.Where(filter);
+            return await res.AsNoTracking().SetIncludes(includes).ToListAsync();
+
         }
 
         public void UpdateAsync(TEntity entity)

@@ -16,11 +16,7 @@ namespace Infrastructure.Common.Extentions
             {
                 return query;
             }
-           query =  query.SetIncludes(includes);
-            //foreach (var include in includes)
-            //{
-            //    query = query.Include(include);
-            //}
+            query = query.SetIncludes(includes);
             return query;
         }
     }

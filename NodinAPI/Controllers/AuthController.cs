@@ -22,17 +22,8 @@ namespace NodinAPI.Controllers
         [HttpPost]
         public async Task UserRegister([FromBody] UserRegisterCommand req)
         {
-            try
-            {
                 var userId = await _mediator.Send(req);
                 await HttpContext.SetAuthenticationTokenAsync(userId);
-
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
         }
 
         [HttpPost]
